@@ -10,6 +10,8 @@ source:
     - {{ cran_mirror }}/src/contrib/unigd_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/unigd/unigd_{{ version }}.tar.gz
   sha256: 27f3315ef93848f72653662e14d2c95d69da5c44d5424b56f64a66149d96d347
+  patches:
+    - patches/0001-minimal-ucrt-libs.patch
 
 build:
   number: 1
