@@ -34,5 +34,5 @@ index a93f69f..9ce3ca6 100644
 -
 -clean:
 -	rm -f $(OBJECTS)
-+PKG_LIBS = -L$(LIBRARY_LIB) -lcairo -lpng -ltiff -ltiffxx -lz
-+PKG_CPPFLAGS = -I$(LIBRARY_INC) -I$(LIBRARY_INC)/cairo -Ilib -I../inst/include -DFMT_HEADER_ONLY
++PKG_LIBS = -L$(CYGWIN_PREFIX)/Library/lib -lcairo -lpng -ltiff -ltiffxx -lz
++PKG_CPPFLAGS = -I$(CYGWIN_PREFIX)Library/include -I$(CYGWIN_PREFIX)/Library/include/cairo -Ilib -I../inst/include -DFMT_HEADER_ONLY
