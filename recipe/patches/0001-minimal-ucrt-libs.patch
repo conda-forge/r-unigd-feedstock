@@ -1,19 +1,23 @@
-From 65441e7a489d1ea6c8d6319fa4ecfc32dc0abe83 Mon Sep 17 00:00:00 2001
+From 9881bae03b92af340343550b4b8abfec485385f7 Mon Sep 17 00:00:00 2001
 From: Daniel Nachun <daniel.nachun@gmail.com>
 Date: Wed, 30 Oct 2024 01:25:04 -0700
 Subject: [PATCH] minimal ucrt libs
 
 ---
- src/Makevars.ucrt | 17 +----------------
- 1 file changed, 1 insertion(+), 16 deletions(-)
+ src/Makevars.ucrt | 20 +++-----------------
+ 1 file changed, 3 insertions(+), 17 deletions(-)
 
 diff --git a/src/Makevars.ucrt b/src/Makevars.ucrt
-index a93f69f..d859bb7 100644
+index a93f69f..4531b96 100644
 --- a/src/Makevars.ucrt
 +++ b/src/Makevars.ucrt
-@@ -4,19 +4,4 @@ PKG_CPPFLAGS = -Ilib \
+@@ -2,21 +2,7 @@ CXX_STD = CXX14
+ 
+ PKG_CPPFLAGS = -Ilib \
  	-DFMT_HEADER_ONLY \
- 	-I../inst/include
+-	-I../inst/include
++	-I../inst/include \
++    -I$(subst \,/,$(LIBRARY_INC))/cairo
  
 -ifeq (,$(shell pkg-config --version 2>/dev/null))
 -  LIBDEFLATE = $(or $(and $(wildcard $(R_TOOLS_SOFT)/lib/libdeflate.a),-ldeflate),)
