@@ -1,0 +1,37 @@
+From 65441e7a489d1ea6c8d6319fa4ecfc32dc0abe83 Mon Sep 17 00:00:00 2001
+From: Daniel Nachun <daniel.nachun@gmail.com>
+Date: Wed, 30 Oct 2024 01:25:04 -0700
+Subject: [PATCH] minimal ucrt libs
+
+---
+ src/Makevars.ucrt | 17 +----------------
+ 1 file changed, 1 insertion(+), 16 deletions(-)
+
+diff --git a/src/Makevars.ucrt b/src/Makevars.ucrt
+index a93f69f..d859bb7 100644
+--- a/src/Makevars.ucrt
++++ b/src/Makevars.ucrt
+@@ -4,19 +4,4 @@ PKG_CPPFLAGS = -Ilib \
+ 	-DFMT_HEADER_ONLY \
+ 	-I../inst/include
+ 
+-ifeq (,$(shell pkg-config --version 2>/dev/null))
+-  LIBDEFLATE = $(or $(and $(wildcard $(R_TOOLS_SOFT)/lib/libdeflate.a),-ldeflate),)
+-  LIBLERC = $(or $(and $(wildcard $(R_TOOLS_SOFT)/lib/liblerc.a),-llerc),)
+-  LIBBROTLI = $(or $(and $(wildcard $(R_TOOLS_SOFT)/lib/libbrotlidec.a),-lbrotlidec -lbrotlicommon),)
+-  LIBSHARPYUV = $(or $(and $(wildcard $(R_TOOLS_SOFT)/lib/libsharpyuv.a),-lsharpyuv),)
+-  PKG_LIBS = -lcairo -lpixman-1 -lfontconfig -lncrypt -lksecdd -lbcrypt -lexpat -lharfbuzz_too -lfreetype_too -lharfbuzz -lfreetype $(LIBBROTLI) -lpng16 -lpng -lbz2 -lgdi32 -lintl -liconv -lz -lcfitsio -ltiff -ltiffxx $(LIBDEFLATE) $(LIBLERC) -ljpeg -lzstd -lwebp $(LIBSHARPYUV) -llzma -luuid -lole32
+-  PKG_CPPFLAGS += -I$(R_TOOLS_SOFT)/include/cairo -DCAIRO_WIN32_STATIC_BUILD
+-else
+-  PKG_LIBS = -ltiffxx $(shell pkg-config --libs cairo libtiff-4)
+-  PKG_CPPFLAGS += $(shell pkg-config --cflags cairo libtiff-4)
+-endif
+-
+-all: clean 
+-
+-clean:
+-	rm -f $(OBJECTS)
++PKG_LIBS = -lcairo -ltiffxx -ltiff
+-- 
+2.47.0
+
