@@ -22,6 +22,8 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '19'
+freetype:
+- '2'
 libpng:
 - '1.6'
 libtiff:
