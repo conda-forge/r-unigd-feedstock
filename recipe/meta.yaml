@@ -14,7 +14,7 @@ source:
     - patches/0001-minimal-ucrt-libs.patch
 
 build:
-  number: 2
+  number: 3
   rpaths:
     - lib/R/lib/
     - lib/
@@ -22,7 +22,7 @@ build:
     - '*/R.dll'        # [win]
     - '*/Rblas.dll'    # [win]
     - '*/Rlapack.dll'  # [win]
-  skip: true  # [ppc64le]
+  skip: true           # [ppc64le]
 
 requirements:
   build:
