@@ -50,6 +50,7 @@ requirements:
     - r-cpp11 >=0.2.4
     - r-systemfonts >=1.0.0
     - cairo
+    - expat
     - freetype
     - libpng
     - libtiff
