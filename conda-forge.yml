@@ -1,7 +1,5 @@
 bot:
   automerge: true
-build_platform:
-  osx_arm64: osx_64
 conda_build:
   error_overlinking: true
 conda_forge_output_validation: true
@@ -10,5 +8,5 @@ github:
   tooling_branch_name: main
 provider:
   linux_aarch64: azure
-  linux_ppc64le: azure
+  osx_arm: azure
 test: native_and_emulated
