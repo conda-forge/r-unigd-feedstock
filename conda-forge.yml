@@ -8,5 +8,5 @@ github:
   tooling_branch_name: main
 provider:
   linux_aarch64: azure
-  osx_arm: azure
+  osx_arm64: azure
 test: native_and_emulated
