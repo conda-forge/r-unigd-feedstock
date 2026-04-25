@@ -1,6 +1,5 @@
 # This file was generated automatically from conda-smithy. To update this configuration,
 # update the conda-forge.yml and/or the recipe/meta.yaml.
->>>>>>> 8f7c598 (MNT: Re-rendered with conda-smithy 3.61.2 and conda-forge-pinning 2026.04.25.10.12.57)
 # -*- mode: yaml -*-
 
 name: Build conda package
