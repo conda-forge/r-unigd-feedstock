@@ -1,42 +1,48 @@
-From 572a00d7657bdb119da9589945f368c2d2fceb28 Mon Sep 17 00:00:00 2001
+From 66eef04d5caf4b8f62c204e93f2e146f9789e61e Mon Sep 17 00:00:00 2001
 From: Daniel Nachun <daniel.nachun@gmail.com>
-Date: Wed, 30 Oct 2024 01:25:04 -0700
-Subject: [PATCH] minimal ucrt libs
+Date: Sat, 25 Apr 2026 16:39:41 -0700
+Subject: [PATCH] minimal UCRT libs
 
 ---
- src/Makevars.ucrt | 21 ++++-----------------
- 1 file changed, 4 insertions(+), 17 deletions(-)
+ src/Makevars.win | 28 ++--------------------------
+ 1 file changed, 2 insertions(+), 26 deletions(-)
 
-diff --git a/src/Makevars.ucrt b/src/Makevars.ucrt
-index a93f69f..c61722f 100644
---- a/src/Makevars.ucrt
-+++ b/src/Makevars.ucrt
-@@ -2,21 +2,8 @@ CXX_STD = CXX14
+diff --git a/src/Makevars.win b/src/Makevars.win
+index 5f1ff99..7c9672b 100644
+--- a/src/Makevars.win
++++ b/src/Makevars.win
+@@ -3,29 +3,5 @@
+ # Rtools44+ includes a working pkg-config that automatically uses --static.
+ # For Rtools42/43 we fall back to explicit library lists.
  
- PKG_CPPFLAGS = -Ilib \
- 	-DFMT_HEADER_ONLY \
--	-I../inst/include
-+    -DUNIGD_NO_TIFF=1 \
-+	-I../inst/include \
-+    -I$(subst \,/,$(LIBRARY_INC))/cairo
- 
+-PKG_CPPFLAGS = -Ilib -I../inst/include -DFMT_HEADER_ONLY
+-
+-# Try pkg-config first (Rtools44+), fall back to explicit libs (Rtools42/43)
 -ifeq (,$(shell pkg-config --version 2>/dev/null))
+-  # No pkg-config: explicit library list
+-  # Conditionally link libraries that may not be present in all Rtools versions
 -  LIBDEFLATE = $(or $(and $(wildcard $(R_TOOLS_SOFT)/lib/libdeflate.a),-ldeflate),)
 -  LIBLERC = $(or $(and $(wildcard $(R_TOOLS_SOFT)/lib/liblerc.a),-llerc),)
 -  LIBBROTLI = $(or $(and $(wildcard $(R_TOOLS_SOFT)/lib/libbrotlidec.a),-lbrotlidec -lbrotlicommon),)
 -  LIBSHARPYUV = $(or $(and $(wildcard $(R_TOOLS_SOFT)/lib/libsharpyuv.a),-lsharpyuv),)
--  PKG_LIBS = -lcairo -lpixman-1 -lfontconfig -lncrypt -lksecdd -lbcrypt -lexpat -lharfbuzz_too -lfreetype_too -lharfbuzz -lfreetype $(LIBBROTLI) -lpng16 -lpng -lbz2 -lgdi32 -lintl -liconv -lz -lcfitsio -ltiff -ltiffxx $(LIBDEFLATE) $(LIBLERC) -ljpeg -lzstd -lwebp $(LIBSHARPYUV) -llzma -luuid -lole32
+-
 -  PKG_CPPFLAGS += -I$(R_TOOLS_SOFT)/include/cairo -DCAIRO_WIN32_STATIC_BUILD
+-  PKG_LIBS = \
+-    -lcairo -lpixman-1 -lfontconfig \
+-    -lncrypt -lksecdd -lbcrypt \
+-    -lexpat -lharfbuzz_too -lfreetype_too -lharfbuzz -lfreetype \
+-    $(LIBBROTLI) -lpng16 -lpng -lbz2 \
+-    -lgdi32 -lintl -liconv -lz \
+-    -ltiff -ltiffxx $(LIBDEFLATE) $(LIBLERC) -ljpeg \
+-    -lzstd -lwebp $(LIBSHARPYUV) -llzma \
+-    -luuid -lole32
 -else
--  PKG_LIBS = -ltiffxx $(shell pkg-config --libs cairo libtiff-4)
--  PKG_CPPFLAGS += $(shell pkg-config --cflags cairo libtiff-4)
+-  # pkg-config available (Rtools44+): let it resolve the full dependency chain
+-  PKG_CPPFLAGS += $(shell pkg-config --cflags cairo libtiff-4 libpng zlib)
+-  PKG_LIBS = -ltiffxx $(shell pkg-config --libs cairo libtiff-4 libpng zlib)
 -endif
--
--all: clean 
--
--clean:
--	rm -f $(OBJECTS)
++PKG_CPPFLAGS = -Ilib -I../inst/include -DFMT_HEADER_ONLY -DUNIGD_NO_TIFF=1 -I$(subst \,/,$(LIBRARY_INC))/cairo
 +PKG_LIBS = -lcairo -ltiffxx -ltiff -lpng -lz
 -- 
-2.47.1
+2.53.0
 
